@@ -1,6 +1,3 @@
-// classes/condition.ts
-
-// Simplified Condition class for demo
 export class Condition {
     type: 'env_check' | 'expression';
     envVarName?: string;
@@ -33,19 +30,15 @@ export class Condition {
         } else if (this.type === 'expression' && this.expression) {
             return this.expression;
         }
-        return ''; // Should not happen with proper validation
+        return '';
     }
 
-    // Simplified evaluate for demo - not actually used in Buildkite YAML generation,
-    // but useful if you were to simulate pipeline execution logic within Node.js
+    // Only for demo - not actually used in Buildkite YAML generation
     evaluate(pipelineState: Map<string, any>, environment: { [key: string]: string }): boolean {
         if (this.type === 'env_check' && this.envVarName && this.envVarValue) {
             return environment[this.envVarName] === this.envVarValue;
         }
-        // Very basic expression evaluation for demo; real one would use an expression parser
         if (this.type === 'expression' && this.expression) {
-            // For a demo, you might only support simple 'true'/'false' or specific checks
-            return this.expression === 'true'; // Simplistic evaluation
         }
         return false;
     }

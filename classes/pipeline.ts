@@ -1,11 +1,9 @@
-// Minimal Pipeline class for demo
-
 import { Step } from './step'; 
 
 export class Pipeline {
     key: string;
     label: string;
-    steps: Step[]; // Use an array for ordered steps for simple YAML generation
+    steps: Step[]; 
     globalEnvironmentVariables: { [key: string]: string };
 
     constructor(key: string, label: string) {
@@ -39,7 +37,6 @@ export class Pipeline {
         };
     }
 
-    // Simplified defineFlow for demo purposes; actual logic would be here
     defineFlow(flowDefinition: (pipeline: Pipeline) => void): void {
         flowDefinition(this);
     }

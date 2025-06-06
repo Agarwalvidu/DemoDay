@@ -1,4 +1,3 @@
-// classes/step.ts
 import { Condition } from './condition'; 
 
 // Represents a single Buildkite pipeline step
@@ -7,9 +6,9 @@ export class Step {
     label: string;
     command?: string; // Optional for group/trigger steps
     type: 'command' | 'group' | 'trigger';
-    dependencies?: string[]; // Optional list of step keys this step depends on
-    condition?: Condition; // Optional condition for execution
-    env?: { [key: string]: string }; // Optional step-specific environment variables
+    dependencies?: string[]; 
+    condition?: Condition; 
+    env?: { [key: string]: string };
     build?: { // For trigger steps
         message: string;
         commit: string;
@@ -34,7 +33,7 @@ export class Step {
         this.key = key;
         this.label = label;
         this.command = options?.command;
-        this.type = options?.type || 'command'; // Default to 'command'
+        this.type = options?.type || 'command'; 
         this.dependencies = options?.dependencies;
         this.condition = options?.condition;
         this.env = options?.env;
@@ -48,7 +47,7 @@ export class Step {
 
     // Converts this Step object into a Buildkite-compatible YAML structure
     toBuildkiteYaml(): any {
-        const yamlOutput: any = { // Renamed from 'yaml' to 'yamlOutput' to avoid shadowing the imported 'yaml' module
+        const yamlOutput: any = { 
             label: this.label,
             key: this.key
         };
@@ -56,13 +55,12 @@ export class Step {
         if (this.type === 'command') {
             yamlOutput.command = this.command;
         } else if (this.type === 'trigger') {
-            yamlOutput.trigger = this.command; // 'command' here holds the pipeline slug to trigger
+            yamlOutput.trigger = this.command; 
             yamlOutput.build = this.build;
             if (this.async !== undefined) {
                 yamlOutput.async = this.async;
             }
         }
-        // Add other properties if they exist
         if (this.dependencies && this.dependencies.length > 0) {
             yamlOutput.depends_on = this.dependencies;
         }
